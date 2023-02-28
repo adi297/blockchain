@@ -1,4 +1,5 @@
-from hash_util import hash_string_256, hash_block
+"""Provides verification functions"""
+from utility.hash_util import hash_string_256, hash_block
 
 class Verification:
 

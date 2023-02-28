@@ -1,6 +1,10 @@
 import hashlib as hl
 import json
 
+# The __all__ list or the single-underscore (e.g. _hl) can be used to control exports under the import * method
+# The __all__ list can contain included imports and the underscore syntax is used to exclude exports
+# __all__ = ['hash_string_256', 'hash_block']
+
 def hash_string_256(string):
     return hl.sha256(string).hexdigest()
 

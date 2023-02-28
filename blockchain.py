@@ -3,11 +3,11 @@ import hashlib as hl
 import json
 import pickle
 # from collections import OrderedDict
-from hash_util import hash_block
+from utility.hash_util import hash_block
 
 from block import Block
 from transaction import Transaction
-from verification import Verification
+from utility.verification import Verification
 
 # The reward we give to miners (for creating a new block)
 MINING_REWARD = 10
@@ -207,6 +207,8 @@ class Blockchain:
             :recipient: The recipient of the coins.
             :amount: The amount of coins sent with the transaction (default = 1.0)
         """
+        if self.hosting_node == None:
+            return False
         # transaction = {
         #     'sender': sender,
         #     'recipient': recipient,
@@ -226,6 +228,8 @@ class Blockchain:
 
     def mine_block(self):
         """Create a new block and add open transactions to it."""
+        if self.hosting_node == None:
+            return False
         # Fetch the currently last block of the blockchain
         last_block = self.__chain[-1]
         # Hash the last block (=> to be able to compare it to the stored hash value)
@@ -258,7 +262,7 @@ class Blockchain:
 
 
 
-
+print(__name__)
 
 
 
