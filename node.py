@@ -49,6 +49,7 @@ class Node:
             print('4: Check transaction validity')
             print('5: Create wallet')
             print('6: Load wallet')
+            print('7: Save Keys')
             # print('h: Manipulate the chain')
             print('q: Quit')
             user_choice = self.get_user_choice()
@@ -56,7 +57,8 @@ class Node:
                 tx_data = self.get_transaction_value()
                 recipient, amount = tx_data
                 # Add the transaction amount to the blockchain
-                if self.blockchain.add_transaction(recipient, self.wallet.public_key, amount=amount):
+                signature = self.wallet.sign_transaction(self.wallet.public_key, recipient, amount)
+                if self.blockchain.add_transaction(recipient, self.wallet.public_key, signature, amount=amount):
                     print('Added transaction!')
                 else:
                     print('Transaction failed! Insufficent balance or no wallet.')
@@ -79,7 +81,10 @@ class Node:
                 self.wallet.create_keys()
                 self.blockchain = Blockchain(self.wallet.public_key)
             elif user_choice == '6':
-                pass
+                self.wallet.load_keys()
+                self.blockchain = Blockchain(self.wallet.public_key)
+            elif user_choice == '7':
+                self.wallet.save_keys()
             # elif user_choice == 'h':
             #     # Make sure that you don't try to "hack" the blockchain if it's empty
             #     if len(blockchain) >= 1:
